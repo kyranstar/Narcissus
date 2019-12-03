@@ -1,7 +1,7 @@
 import cv2
 
 #Capture video from webcam
-vid_capture = cv2.VideoCapture(1)
+vid_capture = cv2.VideoCapture(0)
 vid_cod = cv2.VideoWriter_fourcc(*'XVID')
 output = cv2.VideoWriter("cam_video.mp4", vid_cod, 20.0, (640,480))
 

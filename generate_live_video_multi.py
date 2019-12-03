@@ -1,18 +1,11 @@
 import tensorflow as tf
 import cv2
-from argparse import ArgumentParser
 
 import pickle
-from joblib import load
 import numpy as np
 
 from head_pose.mark_detector import MarkDetector
-from head_pose.os_detector import detect_os
-from head_pose.pose_estimator import PoseEstimator
-from head_pose.stabilizer import Stabilizer
-import joblib
-import frames_to_video
-from Queue import Queue
+from queue import Queue
 from threading import Thread
 
 print("OpenCV version: {}".format(cv2.__version__))
@@ -84,7 +77,6 @@ def calculate_facial_features(frame, facebox, CNN_INPUT_SIZE, mark_detector,  ag
     return np.append(marks.flatten(), np.array([age, gender])).reshape(1, -1)
 
 def process_video_capture(inverter_filename='models/inverter/inverter_randforest_7000.pkl'):
-    Z_DIM = 512
     CNN_INPUT_SIZE = 128
     sess = tf.InteractiveSession()
     video_capture = cv2.VideoCapture(0)
@@ -124,7 +116,7 @@ def process_video_capture(inverter_filename='models/inverter/inverter_randforest
                 feats = calculate_facial_features(frame, facebox, CNN_INPUT_SIZE, mark_detector, age_net, gender_net)
                 feat_queue.put(feats)
 
-    gen_feats_thread = threading.Thread(target=gen_feats_task, daemon=True)
+    gen_feats_thread = Thread(target=gen_feats_task, daemon=True)
     gen_feats_thread.start()
 
     i = 0
