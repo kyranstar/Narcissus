@@ -3,7 +3,7 @@ Narcissus:
 
 This is my implementation of the system behind my artwork, Narcissus.
 
-Pictures here
+![First demo img](demo_imgs/wow.png)
 
 It is an interactive art installation which takes an image of the viewer, compresses that image into a set of descriptive features, and produces the "reflection" of those features as a neural network sees it. Particularly, this Generative Adversarial Network (GAN) draws the viewer's reflection from its artificial, distinctly neural "cognitive" space which is fromed from its training dataset. The GAN is trained on a well-known celebrity face dataset, CelebA-HQ, meaning that the neural network will learn the functions that represent celebrities. Narcissus intends to raise more self-reflecting questions in the viewer than it answers, many of which are becoming increasingly relevant.
 
