@@ -16,7 +16,7 @@ MODEL_MEAN_VALUES = (78.4263377603, 87.7689143744, 114.895847746)
 age_list = ['(0, 2)', '(4, 6)', '(8, 12)', '(15, 20)', '(25, 32)', '(38, 43)', '(48, 53)', '(60, 100)']
 gender_list = ['Male', 'Female']
 
-def calculate_facial_features(frame, facebox, CNN_INPUT_SIZE, mark_detector, age_net, gender_net):
+def calculate_facial_features(frame, facebox, CNN_INPUT_SIZE, mark_detector, age_net, gender_net, draw_data=False):
     # Detect landmarks from image of 128x128.
     face_img_og = frame[facebox[1]: facebox[3],
                      facebox[0]: facebox[2]]
@@ -40,8 +40,37 @@ def calculate_facial_features(frame, facebox, CNN_INPUT_SIZE, mark_detector, age
     marks *= (facebox[2] - facebox[0])
     marks[:, 0] += facebox[0]
     marks[:, 1] += facebox[1]
+    
+    image_colors = np.zeros((marks.shape[0],3))
+    for i in range(len(image_colors)):
+        pixcols = frame[int(marks[i, 0]), int(marks[i, 1]), :]
+        image_colors[i, :] = pixcols
+    
+    if draw_data:
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        fontScale = 1
+        fontColor = (0, 255, 0)
+        lineType = 2
+    
+        display_vars = {'age': age_list[age], 'gender': gender_list[gender], 'face_pos_0': marks[0, 0]}
+        yloc = 50
+        for var_name, value in display_vars.items():
+            cv2.putText(frame,'${} = {}'.format(var_name, value),
+                (10, yloc),
+                font,
+                fontScale,
+                fontColor,
+                lineType)
+        yloc += 50
+    
+        # Uncomment following line to show raw marks.
+        mark_detector.draw_marks(
+             frame, marks, color=(0, 255, 0))
+    
+        # Uncomment following line to show facebox.
+        mark_detector.draw_box(frame, [facebox])
 
-    return np.append(marks.flatten(), np.array([age, gender]))
+    return np.concatenate([marks.flatten(), np.array([age, gender]), image_colors.flatten()])
     # Try pose estimation with 68 points.
     #return pose_estimator.solve_pose_by_68_points(marks)
 
@@ -78,4 +107,4 @@ def f_z_generator(CNN_INPUT_SIZE):
         #cv2.imwrite("inverter_images/output_{}.png".format(i), x)
         #print("Found face...")
         #f = tf.map_fn(lambda single_img: , x)
-        yield (z, x, f.reshape(1, 138))
+        yield (z, x, f.reshape(1, -1))
