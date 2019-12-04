@@ -4,7 +4,8 @@
 This is my implementation of the system behind my artwork, Narcissus.
 
 <img src="demo_img/wow.png" height="256" width="256">
-**Picture:** An imaginary celebrity created by Narcissus.
+
+**Pictures:** Some imaginary celebrities created by Narcissus.
 
 ## Description
 
