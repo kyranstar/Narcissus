@@ -3,10 +3,7 @@
 
 This is my implementation of the system behind my artwork, Narcissus.
 
-<img src="demo_img/img1.png" height="256" width="256">
-<img src="demo_img/img2.png" height="256" width="256">
-<img src="demo_img/img3.png" height="256" width="256">
-<img src="demo_img/img4.png" height="256" width="256">
+<img src="demo_img/img1.png" height="256" width="256"> <img src="demo_img/img2.png" height="256" width="256"> <img src="demo_img/img3.png" height="256" width="256"> <img src="demo_img/img4.png" height="256" width="256">
 
 **Pictures:** Some imaginary celebrities created by Narcissus.
 
