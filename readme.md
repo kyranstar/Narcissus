@@ -3,7 +3,10 @@
 
 This is my implementation of the system behind my artwork, Narcissus.
 
-<img src="demo_img/wow.png" height="256" width="256">
+<img src="demo_img/img1.png" height="256" width="256">
+<img src="demo_img/img2.png" height="256" width="256">
+<img src="demo_img/img3.png" height="256" width="256">
+<img src="demo_img/img4.png" height="256" width="256">
 
 **Pictures:** Some imaginary celebrities created by Narcissus.
 
@@ -44,4 +47,12 @@ On the other hand, the model often makes mistakes that seem obvious to us, produ
 * Additional Python packages listed in `requirements.txt`
 
 ## Training model
-1.
+1. Clone repository
+2. Create directory models/inverter, models/pg_gan, models/race_age, and inverter_images
+3. Download PG GAN .pkl file from [here](https://github.com/tkarras/progressive_growing_of_gans) and put it in models/pg_gan
+4. Download age and gender models and put them in models/race_age
+5. Run `python train_inverter_skmodel.py` which will train models and put them in models/inverter
+
+## Running application
+1. Train models
+2. Run `python generate_live_video_multi.py`
